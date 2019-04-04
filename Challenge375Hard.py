@@ -46,10 +46,7 @@ def generateRelationships(lines):
 def checkStability(nodes,relationships):
   triNodes = sorted(list(set([','.join(sorted([x,y,z])) for x in nodes for y in nodes for z in nodes if (x!=y and y!=z and x!=z)])))
   #print(triNodes)
-  #print('\n')
-
   triArr = [x.split(',') for x in triNodes]
-
   balanced = True
   for node in triArr:
     score1 = relationships[node[0]+','+node[1]]
