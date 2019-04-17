@@ -5,16 +5,15 @@ https://old.reddit.com/r/dailyprogrammer/comments/bazy5j/20190408_challenge_377_
  
 
 '''
-import math
 
 def fit1(X,Y,x,y):
-    i=math.floor(X/x)
-    j=math.floor(Y/y)
+    i=X//x
+    j=Y//y
     print(str(i*j))
 
 def fit2(X,Y,x,y):
-    i=math.floor(X/x)*math.floor(Y/y)
-    j=math.floor(X/y)*math.floor(Y/x)
+    i=X//x*Y//y
+    j=X//y*Y//x
     ans = i if i>j else j
     print(ans)
 
@@ -26,12 +25,31 @@ def fit3(X,Y,Z,x,y,z):
         for j,b in enumerate(list1):
             for k,c in enumerate(list1):
                 if j!=k and k!=i and j!=i:
-                    tempAns=math.floor(X/a)*math.floor(Y/b)*math.floor(Z/c)
+                    tempAns=X//a*Y//b*Z//c
                     ans = tempAns if tempAns>ans else ans
     print(ans)
- 
 
 
+def fitn(dims,sides):
+    ansList = []
+    for i, dim in enumerate(dims):
+        for j,side in enumerate(sides):
+            ansList.append([dim//side,i,j])
+
+    maxAns = 0
+    for i, value1 in enumerate(ansList):
+        ans = value1[0]
+        usedDim = [value1[1]]
+        usedSide = [value1[2]]
+        for j, value2 in enumerate(ansList):
+            if i!=j and value2[1] not in usedDim and value2[2] not in usedSide:
+                ans *= value2[0]
+                usedDim.append(value2[1])
+                usedSide.append(value2[2])
+        
+        maxAns = ans if ans>maxAns else maxAns
+
+    print(maxAns)
 
 fit1(25, 18, 6, 5)
 fit1(10, 10, 1, 1)
@@ -54,3 +72,11 @@ fit3(10, 10, 10, 1, 1, 1)
 fit3(12, 34, 56, 7, 8, 9)
 fit3(123, 456, 789, 10, 11, 12)
 fit3(1234567, 89101112, 13141516, 171819, 202122, 232425)
+
+print('\n')
+
+fitn([3, 4], [1, 2])
+fitn([123, 456, 789], [10, 11, 12])
+fitn([123, 456, 789, 1011, 1213, 1415], [16, 17, 18, 19, 20, 21])
+print('\n')
+
