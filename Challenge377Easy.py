@@ -9,7 +9,7 @@ https://old.reddit.com/r/dailyprogrammer/comments/bazy5j/20190408_challenge_377_
 def fit1(X,Y,x,y):
     i=X//x
     j=Y//y
-    print(str(i*j))
+    print(i*j)
 
 def fit2(X,Y,x,y):
     i=X//x*Y//y
