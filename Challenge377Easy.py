@@ -6,7 +6,6 @@ https://old.reddit.com/r/dailyprogrammer/comments/bazy5j/20190408_challenge_377_
 
 '''
 from itertools import permutations
-from functools import reduce
 
 def fit1(X,Y,x,y):
     i=X//x
