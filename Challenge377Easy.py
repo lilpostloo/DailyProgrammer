@@ -5,6 +5,8 @@ https://old.reddit.com/r/dailyprogrammer/comments/bazy5j/20190408_challenge_377_
  
 
 '''
+from itertools import permutations
+from functools import reduce
 
 def fit1(X,Y,x,y):
     i=X//x
@@ -29,6 +31,8 @@ def fit3(X,Y,Z,x,y,z):
                     ans = tempAns if tempAns>ans else ans
     print(ans)
 
+def fit3_v2(X,Y,Z,x,y,z):
+    print(max(list(map(lambda a:X//a[0]*Y//a[1]*Z//a[2],list(permutations([x,y,z]))))))
 
 def fitn(dims,sides):
     ansList = []
@@ -36,6 +40,23 @@ def fitn(dims,sides):
         for j,side in enumerate(sides):
             ansList.append([dim//side,i,j])
 
+    maxAns = 0
+    for i, value1 in enumerate(ansList):
+        ans = value1[0]
+        usedDim = [value1[1]]
+        usedSide = [value1[2]]
+        for j, value2 in enumerate(ansList):
+            if i!=j and value2[1] not in usedDim and value2[2] not in usedSide:
+                ans *= value2[0]
+                usedDim.append(value2[1])
+                usedSide.append(value2[2])
+        
+        maxAns = ans if ans>maxAns else maxAns
+
+    print(maxAns)
+
+def fitn_v2(dims,sides):
+    ansList = [[y[1]//x[1],y[0],x[0]]for y in enumerate(dims) for x in enumerate(sides)]
     maxAns = 0
     for i, value1 in enumerate(ansList):
         ans = value1[0]
@@ -80,3 +101,15 @@ fitn([123, 456, 789], [10, 11, 12])
 fitn([123, 456, 789, 1011, 1213, 1415], [16, 17, 18, 19, 20, 21])
 print('\n')
 
+
+fit3_v2(10, 10, 10, 1, 1, 1)
+fit3_v2(12, 34, 56, 7, 8, 9)
+fit3_v2(123, 456, 789, 10, 11, 12)
+fit3_v2(1234567, 89101112, 13141516, 171819, 202122, 232425)
+
+
+print('\n')
+
+fitn_v2([3, 4], [1, 2])
+fitn_v2([123, 456, 789], [10, 11, 12])
+fitn([123, 456, 789, 1011, 1213, 1415], [16, 17, 18, 19, 20, 21])
